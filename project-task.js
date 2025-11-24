@@ -42,21 +42,42 @@ Step 4: Test Your Solution
 // 🛠️ Starter Code: processFile Function
 // ============================================
 
+//input validation
+function validateFileData(fileName, fileData){
+  if (typeof fileName !=="string" || fileName.trim() === ""){//checking for missing file name and that it's a string.
+    throw new Error("Error: File name is not valid");
+  }
+  if (typeof fileData !=="string" || fileData.trim() === "")//checking to see if the file data is a string and not blank.
+  {
+    throw new Error ("Error: Data must be a string and may not be empty.");
+  }
+}
+
+
 function processFile(fileName, fileData) {
   try {
-    // TODO: Add input validation here
+    //Add input validation here
+    validateFileData(fileName, fileData);
     
-    // TODO: Implement simulated file processing here
+    //Implement simulated file processing here
+    console.log(`Reading ${fileName}`);
     console.log(`Processing file: ${fileName}`);
     console.log(`File content: ${fileData}`);
     
-    // TODO: Add simulated file operations (reading/writing)
+    //Add simulated file operations (reading/writing)
+    console.log(`Writing ${fileData.toUpperCase()} to ${fileName}`); //simulated processing of data and writing changes to file.
+    console.log(`${fileName} has been saved.`);
     
   } catch (err) {
-    // TODO: Implement error handling
-    console.error(err);
+    //Implement error handling
+    console.error(err.message);
+
+    // Implement a finally block to close resources
+  } finally {
+    console.log(`Closing file: ${fileName}`);
+    console.log(`Processing Complete.`);
   }
-  // TODO: Implement a finally block to close resources
+  
 }
 
 // ============================================
@@ -64,6 +85,7 @@ function processFile(fileName, fileData) {
 // ============================================
 
 processFile(); // ❌ ReferenceError: File name is missing
+processFile("  ","All good men must come to the aid of their country.");//❌Added test case: file name is space.
 processFile("myFile.txt", 42); // ❌ TypeError: File data must be a string
 processFile("myFile.txt", ""); // ❌ Error: File data cannot be empty
 processFile("myFile.txt", "Hello, world!"); // ✅ Should process successfully
